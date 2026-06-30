@@ -12,7 +12,7 @@ export default function App() {
   const [wallet, setWallet] = useState<string | null>(null)
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route element={<Layout wallet={wallet} onConnected={setWallet} onLogout={() => setWallet(null)} />}>
           <Route path="/" element={<Landing />} />
