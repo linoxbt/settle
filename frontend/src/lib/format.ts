@@ -27,8 +27,8 @@ export const STATUS_LABEL: Record<number, string> = {
 }
 
 export const STATUS_COLOR: Record<number, string> = {
-  0: 'text-[#00d4aa] bg-[#0d2b24]',
-  1: 'text-[#9b9b9b] bg-[#1e1e1e]',
+  0: 'text-[var(--accent)] bg-[var(--accent-tint)]',
+  1: 'text-[var(--text-2)] bg-[var(--border)]',
   2: 'text-yellow-400 bg-yellow-900/30',
   3: 'text-red-400 bg-red-900/30',
 }

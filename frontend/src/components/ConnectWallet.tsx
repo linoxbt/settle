@@ -55,33 +55,35 @@ export default function ConnectWallet({ onClose, onConnected }: Props) {
     { key: 'wallet', label: 'Wallet' },
   ]
 
+  const inputCls = "w-full bg-[var(--input-bg)] border border-[var(--border)] rounded-sm px-3 py-2.5 text-sm text-[var(--text-1)] placeholder-[var(--text-2)] outline-none focus:border-[var(--accent)] transition-colors"
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
-      <div className="bg-[#111111] border border-[#1e1e1e] rounded-sm w-full max-w-md shadow-2xl">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-sm w-full max-w-md shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#1e1e1e]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border)]">
           <div>
-            <p className="text-xs text-[#9b9b9b] uppercase tracking-widest mb-1">Authenticate</p>
-            <h2 className="text-[#e8e8e8] text-base font-semibold">Connect to Settle</h2>
+            <p className="text-xs text-[var(--text-2)] uppercase tracking-widest mb-1">Authenticate</p>
+            <h2 className="text-[var(--text-1)] text-base font-semibold">Connect to Settle</h2>
           </div>
           <button
             onClick={onClose}
-            className="text-[#9b9b9b] hover:text-[#e8e8e8] transition-colors p-1"
+            className="text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors p-1"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-[#1e1e1e]">
+        <div className="flex border-b border-[var(--border)]">
           {TABS.map(t => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
               className={`flex-1 py-3 text-xs font-medium uppercase tracking-widest transition-colors ${
                 tab === t.key
-                  ? 'text-[#00d4aa] border-b-2 border-[#00d4aa] -mb-px'
-                  : 'text-[#9b9b9b] hover:text-[#e8e8e8]'
+                  ? 'text-[var(--accent)] border-b-2 border-[var(--accent)] -mb-px'
+                  : 'text-[var(--text-2)] hover:text-[var(--text-1)]'
               }`}
             >
               {t.label}
@@ -93,29 +95,29 @@ export default function ConnectWallet({ onClose, onConnected }: Props) {
         <div className="px-6 py-6">
           {tab === 'email' && (
             <form onSubmit={handleEmail} className="space-y-4">
-              <p className="text-xs text-[#9b9b9b]">Enter your email to receive a magic link. No password, no seed phrase.</p>
+              <p className="text-xs text-[var(--text-2)]">Enter your email to receive a magic link. No password, no seed phrase.</p>
               {sent ? (
-                <div className="bg-[#0d2b24] border border-[#00d4aa]/30 rounded-sm p-4 text-center">
-                  <p className="text-[#00d4aa] text-sm font-medium">Magic link sent!</p>
-                  <p className="text-[#9b9b9b] text-xs mt-1">Check your inbox and click the link to sign in.</p>
+                <div className="bg-[var(--accent-tint)] border border-[var(--accent)]/30 rounded-sm p-4 text-center">
+                  <p className="text-[var(--accent)] text-sm font-medium">Magic link sent!</p>
+                  <p className="text-[var(--text-2)] text-xs mt-1">Check your inbox and click the link to sign in.</p>
                 </div>
               ) : (
                 <>
                   <div>
-                    <label className="block text-xs text-[#9b9b9b] mb-2 uppercase tracking-widest">Email address</label>
+                    <label className="block text-xs text-[var(--text-2)] mb-2 uppercase tracking-widest">Email address</label>
                     <input
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm px-3 py-2.5 text-sm text-[#e8e8e8] placeholder-[#9b9b9b] outline-none focus:border-[#00d4aa] transition-colors"
+                      className={inputCls}
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading || !email}
-                    className="w-full bg-[#00d4aa] text-black font-semibold text-sm py-2.5 rounded-sm hover:bg-[#00bfa0] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-[var(--accent)] text-black font-semibold text-sm py-2.5 rounded-sm hover:bg-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                   >
                     <Mail size={14} />
                     {loading ? 'Sending…' : 'Send Magic Link'}
@@ -127,13 +129,13 @@ export default function ConnectWallet({ onClose, onConnected }: Props) {
 
           {tab === 'social' && (
             <div className="space-y-3">
-              <p className="text-xs text-[#9b9b9b] mb-4">Sign in with your social account. A smart wallet is created automatically.</p>
+              <p className="text-xs text-[var(--text-2)] mb-4">Sign in with your social account. A smart wallet is created automatically.</p>
               <button
                 onClick={handleGoogle}
                 disabled={loading}
-                className="w-full flex items-center gap-3 bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm px-4 py-3 text-sm text-[#e8e8e8] hover:border-[#2e2e2e] disabled:opacity-50 transition-colors"
+                className="w-full flex items-center gap-3 bg-[var(--bg)] border border-[var(--border)] rounded-sm px-4 py-3 text-sm text-[var(--text-1)] hover:border-[var(--text-2)] disabled:opacity-50 transition-colors"
               >
-                <Globe size={16} className="text-[#00d4aa]" />
+                <Globe size={16} className="text-[var(--accent)]" />
                 Continue with Google
               </button>
             </div>
@@ -141,16 +143,16 @@ export default function ConnectWallet({ onClose, onConnected }: Props) {
 
           {tab === 'wallet' && (
             <div className="space-y-3">
-              <p className="text-xs text-[#9b9b9b] mb-4">Connect an existing Web3 wallet.</p>
+              <p className="text-xs text-[var(--text-2)] mb-4">Connect an existing Web3 wallet.</p>
               <button
                 onClick={handleMetaMask}
-                className="w-full flex items-center gap-3 bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm px-4 py-3 text-sm text-[#e8e8e8] hover:border-[#2e2e2e] transition-colors"
+                className="w-full flex items-center gap-3 bg-[var(--bg)] border border-[var(--border)] rounded-sm px-4 py-3 text-sm text-[var(--text-1)] hover:border-[var(--text-2)] transition-colors"
               >
                 <Wallet size={16} className="text-[#f6851b]" />
                 MetaMask
               </button>
               <button
-                className="w-full flex items-center gap-3 bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm px-4 py-3 text-sm text-[#e8e8e8] hover:border-[#2e2e2e] transition-colors"
+                className="w-full flex items-center gap-3 bg-[var(--bg)] border border-[var(--border)] rounded-sm px-4 py-3 text-sm text-[var(--text-1)] hover:border-[var(--text-2)] transition-colors"
               >
                 <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex-shrink-0" />
                 WalletConnect
@@ -160,9 +162,9 @@ export default function ConnectWallet({ onClose, onConnected }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-[#1e1e1e]">
-          <p className="text-[10px] text-[#9b9b9b] text-center">
-            Powered by <span className="text-[#00d4aa]">Magic Labs</span> · Arbitrum Sepolia · USDC 6-dec
+        <div className="px-6 py-4 border-t border-[var(--border)]">
+          <p className="text-[10px] text-[var(--text-2)] text-center">
+            Powered by <span className="text-[var(--accent)]">Magic Labs</span> · Arbitrum Sepolia · USDC 6-dec
           </p>
         </div>
       </div>

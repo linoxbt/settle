@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './lib/theme'
 import Layout from './components/Layout'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
@@ -12,17 +13,19 @@ export default function App() {
   const [wallet, setWallet] = useState<string | null>(null)
 
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Routes>
-        <Route element={<Layout wallet={wallet} onConnected={setWallet} onLogout={() => setWallet(null)} />}>
-          <Route path="/" element={<Landing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/merchant" element={<Merchant />} />
-          <Route path="/merchant/onboard" element={<MerchantOnboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <Routes>
+          <Route element={<Layout wallet={wallet} onConnected={setWallet} onLogout={() => setWallet(null)} />}>
+            <Route path="/" element={<Landing />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/merchant" element={<Merchant />} />
+            <Route path="/merchant/onboard" element={<MerchantOnboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
